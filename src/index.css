@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+:root {
+  --crimson: #B22222;
+  --crimson-dark: #8B0000;
+  --gold: #D4AF37;
+  --gold-light: #F0D060;
+  --gold-dark: #A67C00;
+  --gold-mid: #C9A227;
+  --cream: #FFFDD0;
+  --cream-dark: #F5EEB0;
+  --saffron: #FF991F;
+  --paper: #FFF8DC;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  font-family: 'Noto Sans Devanagari', sans-serif;
+  background-color: #120303;
+  overflow-x: hidden;
+}
+
+/* Rich deep background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 20%, rgba(139,0,0,0.25) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(120,60,0,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 50% at 20% 70%, rgba(100,20,0,0.12) 0%, transparent 50%),
+    linear-gradient(170deg, #180404 0%, #0e0202 40%, #160505 100%);
+  z-index: -2;
+}
+
+/* Subtle noise texture overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px;
+  opacity: 0.4;
+  z-index: -1;
+  pointer-events: none;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.font-cinzel {
+  font-family: 'Cinzel Decorative', 'Cinzel', serif;
+}
+
+.font-fell {
+  font-family: 'IM Fell English', serif;
+}
+
+.font-devanagari {
+  font-family: 'Noto Sans Devanagari', sans-serif;
+}
+
+/* ── Animations ── */
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.spin-slow {
+  animation: spin-slow 25s linear infinite;
+}
+
+@keyframes om-pulse {
+  0%, 100% { opacity: 0.75; transform: scale(1); box-shadow: 0 0 16px rgba(212,175,55,0.15); }
+  50% { opacity: 1; transform: scale(1.03); box-shadow: 0 0 28px rgba(212,175,55,0.35); }
+}
+.om-pulse {
+  animation: om-pulse 3.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -250% center; }
+  100% { background-position: 250% center; }
+}
+.gold-shimmer {
+  background: linear-gradient(90deg,
+    var(--gold-dark) 0%,
+    var(--gold-light) 35%,
+    #fffacd 50%,
+    var(--gold-light) 65%,
+    var(--gold-dark) 100%
+  );
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 5s linear infinite;
+}
+
+/* Envelope */
+.envelope-paper {
+  background-image: url('/e5366ab2-a105-43c6-8ad8-e14204723200.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-color: #2a0a00;
+}
+
+/* Letter */
+.letter-paper {
+  background-image: url('/f8fc2503-e4e2-4d7f-a7e8-c27400b5060f.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-color: #fff8e1;
+}
+
+/* ── Petals ── */
+@keyframes float-petal {
+  0% {
+    transform: translateY(0) rotate(0deg) translateX(0);
+    opacity: 0;
+  }
+  5% { opacity: 0.9; }
+  80% { opacity: 0.7; }
+  100% {
+    transform: translateY(110vh) rotate(600deg) translateX(60px);
+    opacity: 0;
+  }
+}
+.petal {
+  position: fixed;
+  pointer-events: none;
+  animation: float-petal linear forwards;
+  z-index: 9999;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+/* ── Scrollbar ── */
+.invitation-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212,175,55,0.4) transparent;
+}
+.invitation-scroll::-webkit-scrollbar {
+  width: 3px;
+}
+.invitation-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.invitation-scroll::-webkit-scrollbar-thumb {
+  background: rgba(212,175,55,0.5);
+  border-radius: 2px;
+}
+
+/* ── Ambient glow ring (decorative bg element) ── */
+@keyframes ambient-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.04); }
+}
+.ambient-glow {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: ambient-pulse 6s ease-in-out infinite;
+}
